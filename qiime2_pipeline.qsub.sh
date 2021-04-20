@@ -1,8 +1,8 @@
 ### Job name
-#PBS -N Bac_screen_${id}
+#PBS -N GAGA_ampSeq_qiime
 ### Output files
-#PBS -e Bac_screen_${id}.err
-#PBS -o Bac_screen_${id}.log
+#PBS -e GAGA_ampSeq_qiime.err
+#PBS -o GAGA_ampSeq_qiime.log
 ### Only send mail when job is aborted or terminates abnormally
 #PBS -m n
 ### Number of nodes/cores
