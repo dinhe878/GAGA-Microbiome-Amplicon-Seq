@@ -53,6 +53,6 @@ workflow {
   GAGAid_ch.flatten()
            .view()
   results_ch = updateERDA(GAGAid_ch.flatten())
-  results_ch.view( it )
+  results_ch.view{ it }
 
 }
