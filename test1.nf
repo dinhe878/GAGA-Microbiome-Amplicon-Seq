@@ -48,6 +48,6 @@ workflow {
   GAGAid_ch = getGAGAID(GAGA_ID_file_ch)
   GAGAid_ch.flatten()
            .view()
-  //updateERDA(GAGAid_ch.flatten())
+  updateERDA(GAGAid_ch.flatten())
 
 }
