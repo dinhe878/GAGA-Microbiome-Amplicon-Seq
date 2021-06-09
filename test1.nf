@@ -5,7 +5,7 @@ nextflow.enable.dsl=2
 process getGAGAID {
 
   label 'single_core'
-  
+
   input:
   file 'GAGA_ID_file'
 
@@ -34,7 +34,7 @@ process updateERDA {
 
   script:
   """
-  lftp io.erda.dk -p 21 -e "mirror -R $params.GAGA_Bac_screen_dir/results/ /GAGA/Microbiome/Results/Latest/22012021/$id; bye"
+  lftp io.erda.dk -p 21 -e "mirror -R $params.GAGA_Bac_screen_dir/$id/results/ /GAGA/Microbiome/Results/Latest/22012021/$id; bye"
   """
 }
 /*
