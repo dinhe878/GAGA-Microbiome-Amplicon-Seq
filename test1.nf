@@ -21,6 +21,20 @@ process getGAGAID {
  * update ERDA folder
  */
 
+process updateERDA {
+
+  // when using computerome profile
+  label 'single_core'
+  module 'lftp/4.9.2'
+
+  input:
+  val id from GAGAid_ch
+
+  script:
+  """
+  lftp io.erda.dk -p 21 -e "mirror -R $params.GAGA_Bac_screen_dir/results/ /GAGA/Microbiome/Results/Latest/22012021/${id}; bye"
+  """
+}
 /*
  * kraken2 taxonomy profiling
  */
