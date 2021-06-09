@@ -46,6 +46,8 @@ GAGA_ID_file_ch = Channel.fromPath(params.GAGA_IDs)
 workflow {
 
   GAGAid_ch = getGAGAID(GAGA_ID_file_ch)
-  updateERDA(GAGAid_ch)
+  GAGAid_ch.flatten()
+           .view()
+  //updateERDA(GAGAid_ch.flatten())
 
 }
