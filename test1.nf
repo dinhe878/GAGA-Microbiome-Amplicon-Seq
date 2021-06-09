@@ -28,11 +28,11 @@ process updateERDA {
   module 'lftp/4.9.2'
 
   input:
-  val id from GAGAid_ch
+  val id
 
   script:
   """
-  lftp io.erda.dk -p 21 -e "mirror -R $params.GAGA_Bac_screen_dir/results/ /GAGA/Microbiome/Results/Latest/22012021/${id}; bye"
+  lftp io.erda.dk -p 21 -e "mirror -R $params.GAGA_Bac_screen_dir/results/ /GAGA/Microbiome/Results/Latest/22012021/$id; bye"
   """
 }
 /*
@@ -44,6 +44,6 @@ GAGA_ID_file_ch = Channel.fromPath(params.GAGA_IDs)
 workflow {
 
   GAGAid_ch = getGAGAID(GAGA_ID_file_ch)
-  GAGAid_ch.view{ it.trim() }
+  updateERDA(GAGAid_ch)
 
 }
