@@ -26,14 +26,18 @@ process getGAGAID {
 process updateERDA {
 
   // when using computerome profile
-  label 'single_core'
+  label 'multi_core'
   module 'lftp/4.9.2'
 
   input:
   val id
 
+  output:
+  stdout
+
   script:
   """
+  echo "updating $id"
   lftp io.erda.dk -p 21 -e "mirror -R $params.GAGA_Bac_screen_dir/$id/results/ /GAGA/Microbiome/Results/Latest/22012021/$id; bye"
   """
 }
