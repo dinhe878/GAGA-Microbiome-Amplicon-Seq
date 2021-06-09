@@ -37,7 +37,7 @@ process updateERDA {
 
   script:
   """
-  echo "updating $id"
+  echo "updating $id to ERDA"
   lftp io.erda.dk -p 21 -e "mirror -R $params.GAGA_Bac_screen_dir/$id/results/ /GAGA/Microbiome/Results/Latest/22012021/$id; bye"
   """
 }
