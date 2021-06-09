@@ -4,6 +4,8 @@ nextflow.enable.dsl=2
 
 process getGAGAID {
 
+  label 'single_core'
+  
   input:
   file 'GAGA_ID_file'
 
