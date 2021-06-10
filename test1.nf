@@ -43,7 +43,7 @@ process updateERDA {
  */
 
 GAGAid_ch = Channel.fromPath(params.GAGA_IDs)
-                         .splitText()
+                   .splitText() { it.trim() }
 
 workflow {
 
