@@ -1,0 +1,33 @@
+### Job name
+#PBS -N nextflow.qsub
+### Output files
+#PBS -e nextflow.qsub.err
+#PBS -o nextflow.qsub.log
+### Only send mail when job is aborted or terminates abnormally
+#PBS -m n
+### Number of nodes/cores
+#PBS -l nodes=1:ppn=1:thinnode
+### Minimum memory
+#PBS -l mem=4gb
+### Requesting time - format is <days>:<hours>:<minutes>:<seconds>
+#PBS -l walltime=24:00:00
+
+
+#########################################################
+# loading necessary modules                             #
+#########################################################
+
+module load tools java/1.8.0 jre/1.8.0 oracle_jdk/9.0.4 nextflow/20.10.0
+
+#########################################################
+# setup variables and folder structure                  #
+#########################################################
+
+GAGA_meta_ampSeq_repo=/home/people/dinghe/github/GAGA-Microbiome-Ampicon-Seq
+nextflow_dir=/home/people/dinghe/ku_00039/people/dinghe/working_dr/nextflow_dir
+
+#########################################################
+# qsub nextflow pipeline - Taxa_profiling.nf            #
+#########################################################
+
+nextflow run $GAGA_meta_ampSeq_repo/Taxa_profiling.nf --GAGA_IDs $GAGA_meta_ampSeq_repo/GAGA_IDs_test -c $GAGA_meta_ampSeq_repo/Taxa_profiling.nf.config -profile computerome
