@@ -65,8 +65,8 @@ process updateERDA {
    bracken -d $params.krakenDB -i $params.taxonomy_profile_dir/$id/assembly.k2.report -l S -o $params.taxonomy_profile_dir/$id/assembly.k2.species.bracken
    bracken -d $params.krakenDB -i $params.taxonomy_profile_dir/$id/assembly.k2.report -l C -o $params.taxonomy_profile_dir/$id/assembly.k2.class.bracken
    cat $params.taxonomy_profile_dir/$id/assembly.k2.out | cut -f 2,3 > $params.taxonomy_profile_dir/$id/assembly.k2.krona
-   $kronatools_dir/ktImportTaxonomy -o $params.taxonomy_profile_dir/$id/taxonomy.krona.html $params.taxonomy_profile_dir/$id/assembly.k2.krona
-   lftp io.erda.dk -p 21 -e "mkdir /GAGA/Microbiome/Metagenome_assembly/assembly_assessment/taxonomy_profile/$id; mirror -R $taxonomy_profile_dir/$id /GAGA/Microbiome/Metagenome_assembly/assembly_assessment/taxonomy_profile/$id; bye"
+   $params.kronatools_dir/ktImportTaxonomy -o $params.taxonomy_profile_dir/$id/taxonomy.krona.html $params.taxonomy_profile_dir/$id/assembly.k2.krona
+   lftp io.erda.dk -p 21 -e "mkdir /GAGA/Microbiome/Metagenome_assembly/assembly_assessment/taxonomy_profile/$id; mirror -R $params.taxonomy_profile_dir/$id /GAGA/Microbiome/Metagenome_assembly/assembly_assessment/taxonomy_profile/$id; bye"
    """
 
  }
