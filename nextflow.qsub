@@ -30,4 +30,5 @@ nextflow_dir=/home/people/dinghe/ku_00039/people/dinghe/working_dr/nextflow_dir
 # qsub nextflow pipeline - Taxa_profiling.nf            #
 #########################################################
 
+cd $nextflow_dir/metagenome
 nextflow run $GAGA_meta_ampSeq_repo/Taxa_profiling.nf --GAGA_IDs $GAGA_meta_ampSeq_repo/GAGA_IDs_test -c $GAGA_meta_ampSeq_repo/Taxa_profiling.nf.config -profile computerome

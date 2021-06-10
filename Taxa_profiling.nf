@@ -41,12 +41,14 @@ process procKraken2 {
   val id
 
   output:
-  tuple file("$params.taxonomy_profile_dir/$id/assembly.k2.report"), file("$params.taxonomy_profile_dir/$id/assembly.k2.krona")
+  tuple file('assembly.k2.report'), file('assembly.k2.krona')
 
   script:
   """
-  echo kraken2 --threads 40 --db $params.krakenDB $params.initial_assembly_dir/$id/assembly.fasta --output $params.taxonomy_profile_dir/$id/assembly.k2.out --report $params.taxonomy_profile_dir/$id/assembly.k2.report
-  echo cat $params.taxonomy_profile_dir/$id/assembly.k2.out | cut -f 2,3 > $params.taxonomy_profile_dir/$id/assembly.k2.krona
+  echo kraken2 --threads 40 --db $params.krakenDB $params.initial_assembly_dir/$id/assembly.fasta --output $params.taxonomy_profile_dir/$id/assembly.k2.out --report assembly.k2.report
+  echo cat $params.taxonomy_profile_dir/$id/assembly.k2.out | cut -f 2,3 > assembly.k2.krona
+  echo cp assembly.k2.report $params.taxonomy_profile_dir/$id/
+  echo cp assembly.k2.krona $params.taxonomy_profile_dir/$id/
   """
 
 }
@@ -61,13 +63,16 @@ process procBracken {
   tuple file(k2Report), file(k2Krona)
 
   output:
-  stdout
+  tuple file('assembly.k2.species.bracken'), file('assembly.k2.class.bracken'), file('taxonomy.krona.html')
 
   script:
   """
-  echo bracken -d $params.krakenDB -i $params.taxonomy_profile_dir/$id/assembly.k2.report -l S -o $params.taxonomy_profile_dir/$id/assembly.k2.species.bracken
-  echo bracken -d $params.krakenDB -i $params.taxonomy_profile_dir/$id/assembly.k2.report -l C -o $params.taxonomy_profile_dir/$id/assembly.k2.class.bracken
-  echo $params.kronatools_dir/ktImportTaxonomy -o $params.taxonomy_profile_dir/$id/taxonomy.krona.html $params.taxonomy_profile_dir/$id/assembly.k2.krona
+  echo bracken -d $params.krakenDB -i $k2Report -l S -o assembly.k2.species.bracken
+  echo bracken -d $params.krakenDB -i $k2Report -l C -o assembly.k2.class.bracken
+  echo $params.kronatools_dir/ktImportTaxonomy -o taxonomy.krona.html $k2Krona
+  echo cp assembly.k2.species.bracken $params.taxonomy_profile_dir/$id/
+  echo cp assembly.k2.class.bracken $params.taxonomy_profile_dir/$id/
+  echo cp taxonomy.krona.html $params.taxonomy_profile_dir/$id/
   echo lftp io.erda.dk -p 21 -e "mkdir /GAGA/Microbiome/Metagenome_assembly/assembly_assessment/taxonomy_profile/$id; mirror -R $params.taxonomy_profile_dir/$id /GAGA/Microbiome/Metagenome_assembly/assembly_assessment/taxonomy_profile/$id; bye"
   """
 
