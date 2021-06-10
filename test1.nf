@@ -14,7 +14,7 @@ process test {
   """
   printf $id
   """
-  
+
 }
 /*
  * update ERDA folder
@@ -23,7 +23,7 @@ process test {
 process updateERDA {
 
   // when using computerome profile
-  label 'multi_core'
+  label 'single_core'
   module 'lftp/4.9.2'
 
   input:
@@ -47,9 +47,9 @@ GAGAid_ch = Channel.fromPath(params.GAGA_IDs)
 
 workflow {
 
-    GAGAid_ch_again = test(GAGAid_ch)
-    GAGAid_ch_again.view{ it }
-//    results_ch = updateERDA(GAGAid_ch)
-//  results_ch.view{ it }
+//    GAGAid_ch_again = test(GAGAid_ch)
+//    GAGAid_ch_again.view{ it }
+    results_ch = updateERDA(GAGAid_ch)
+    results_ch.view{ it }
 
 }
