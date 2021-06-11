@@ -83,8 +83,8 @@ GAGAid_ch = Channel.fromPath(params.GAGA_IDs)
 
 workflow {
 
-    updateERDA_results_ch = updateERDA(GAGAid_ch)
-    updateERDA_results_ch.view{ it }
+//    updateERDA_results_ch = updateERDA(GAGAid_ch)
+//    updateERDA_results_ch.view{ it }
     procKraken2_results_ch = procKraken2(GAGAid_ch)
     procKraken2_results_ch.view{ it }
     procBracken_results_ch = procBracken(procKraken2_results_ch)
