@@ -41,7 +41,7 @@ process procKraken2 {
   val id
 
   output:
-  tuple file('assembly.k2.report'), file('assembly.k2.krona')
+  tuple file("${id}.assembly.k2.report"), file("${id}.assembly.k2.krona")
 
   script:
   """
